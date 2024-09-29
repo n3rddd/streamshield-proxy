@@ -98,8 +98,6 @@ ppyycc/streamshield-proxy:latest
 
 搭配域名和 HTTPS 部署：
 
-bash
-Copy Code
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 444:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="https://pixman.aaaa.com" \
