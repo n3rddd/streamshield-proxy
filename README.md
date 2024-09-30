@@ -45,7 +45,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
     -e VPS_HOST="http://200.200.200.200:4994" \
     -e SECURITY_TOKEN="test11" \
     -e INCLUDE_MYTVSUPER="free" \
-    -e chinam3u="true" \
+    -e CHINAM3U="true" \
     --restart always \
     ppyycc/streamshield-proxy:latest 
 
@@ -58,7 +58,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 | INCLUDE_MYTVSUPER="true"/"free" | 是否启用 mytvsuper_tivimate.m3u 渠道加载，缺省不加载。有自己的key就用ture，没有key就用free看12个免费电视台 |
 | DEBUG="true" | 是否要开启DEBUG， 不写这个扩展默认不开启。 |
 | SECURITY_TOKEN="testtoken" | 输入自己设置的安全token防止扫到端口被爆破。 |
-| chinam3u="true" | 是否要开启大陆电视台， 不写这个扩展默认不开启。 |
+| CHINAM3U="true" | 是否要开启大陆电视台， 不写这个扩展默认不开启。 |
 | CUSTOM_M3U=“test.m3u”| 是否要开倒入自定义M3U，名字和pixman docker内一致。 |
 | CUSTOM_M3U_PROXY="true" | 是否要用本程序代理自定义M3U流量，不写这个扩展默认默认不开启自定义M3U代理。 |
 | CUSTOM_M3U_PROXY_HOST | 写入自定义M3U需要代理的host，方便程序识别并代理。 |
@@ -75,7 +75,7 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e VPS_HOST="http://200.200.200.200:8888" \
 -e SECURITY_TOKEN="test11" \
 -e INCLUDE_MYTVSUPER="true" \
--e chinam3u="true"
+-e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
 访问地址：http://200.200.200.200:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
@@ -90,7 +90,7 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e VPS_HOST="http://200.200.200.200:8888" \
 -e SECURITY_TOKEN="test22" \
 -e INCLUDE_MYTVSUPER="free" \
--e chinam3u="true"
+-e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
 访问地址：http://200.200.200.200:8888/test22， 并已自动导入 mytvfree.m3u，并且能收看大陆电视台。
