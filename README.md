@@ -70,19 +70,19 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 ## 部署案例
 
 
-仅使用 IP 地址部署：
+仅使用 IP 同VPS地址部署：
 
 
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
--e VPS_HOST="http://200.200.200.200:8888" \
+-e VPS_HOST="http://100.100.100.100:8888" \
 -e SECURITY_TOKEN="test11" \
 -e INCLUDE_MYTVSUPER="true" \
 -e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
-访问地址：http://200.200.200.200:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
+访问地址：http://100.100.100.100:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
 
 
 仅使用 IP 地址部署并只看free mytvsuper：
