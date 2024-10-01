@@ -19,6 +19,8 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 由于 Mytvsuper 使用 mpd 加密技术连接，每次 IPTV 换台的时间大约是 4gtv 的四倍，加重了换台等待感。
 
+支持Thetv的HLS加密方式。
+
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
 ## Docker 部署指南
@@ -65,6 +67,8 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 
 
 ## 部署案例
+
+可与pixman部署在同一个vps上，IP写同样便可。
 
 仅使用 IP 地址部署：
 
