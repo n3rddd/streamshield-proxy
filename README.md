@@ -82,6 +82,8 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
+
+
 访问地址：http://100.100.100.100:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
 
 
@@ -97,6 +99,8 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
+
+
 访问地址：http://200.200.200.200:8888/test22， 并已自动导入 mytvfree.m3u，并且能收看大陆电视台。
 
 
