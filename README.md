@@ -70,7 +70,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 ## 部署案例
 
 
-仅使用 IP 同VPS地址部署：
+仅使用 IP 同一VPS地址部署pixman和代理：
 
 
 docker pull ppyycc/streamshield-proxy:latest \
