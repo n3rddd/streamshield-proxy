@@ -1,4 +1,4 @@
-# StreamShield Proxy: pixman 流媒体播放代理工具
+# StreamShield Proxy: pixman HLS MPD流媒体播放代理工具
 
 ## 简介
 
