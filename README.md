@@ -1,4 +1,4 @@
-# StreamShield Proxy: pixman 无缝流媒体播放代理方案
+# StreamShield Proxy: pixman 流媒体播放代理工具
 
 ## 简介
 
@@ -66,7 +66,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 | CUSTOM_M3U=“test.m3u”| 是否要开倒入自定义M3U，名字和pixman docker内一致。 |
 | CUSTOM_M3U_PROXY="true" | 是否要用本程序代理自定义M3U流量，不写这个扩展默认默认不开启自定义M3U代理。 |
 | CUSTOM_M3U_PROXY_HOST | 写入自定义M3U需要代理的host，方便程序识别并代理。 |
-| EXTRA_M3U_URLS | 写入多个别的VPS订阅地址进行多源聚合 |
+| EXTRA_M3U_URLS | 写入多个别的VPS订阅地址进行多源聚合，多源优先级按照写入先后排定优先级，本机优先级在最后。 |
 
 
 ## 部署案例
@@ -127,7 +127,7 @@ docker run -d -p 444:4994 --name streamshield-proxy \
 -e EXTRA_M3U_URLS='https://iptv.cccc.com/test123,https://iptv.dddd.com/test123'
 --restart always \
 ppyycc/streamshield-proxy:latest
-访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台，聚合别的两个VPS作为多源源头。别的两个vps部署上可以不用加'EXTRA_M3U_URLS'参数启动，只是作为单源播放点。
+访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台，聚合别的两个VPS作为多源源头。别的两个vps部署上可以不用加'EXTRA_M3U_URLS'参数启动，只是作为单源播放点。优先级1.cccc 2.dddd 3.bbbb
 效果如下
 ![image](https://github.com/user-attachments/assets/a7862d7c-fec5-4d9e-9d7e-a67779ed4e7b)
 
