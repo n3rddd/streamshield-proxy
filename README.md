@@ -115,6 +115,8 @@ docker run -d -p 444:4994 --name streamshield-proxy \
 -e SECURITY_TOKEN="test33" \
 --restart always \
 ppyycc/streamshield-proxy:latest
+
+
 访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台。
 
 多VPS CDN部署：
@@ -127,6 +129,8 @@ docker run -d -p 444:4994 --name streamshield-proxy \
 -e EXTRA_M3U_URLS='https://iptv.cccc.com/test123,https://iptv.dddd.com/test123'
 --restart always \
 ppyycc/streamshield-proxy:latest
+
+
 访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台，聚合别的两个VPS作为多源源头。别的两个vps部署上可以不用加'EXTRA_M3U_URLS'参数启动，只是作为单源播放点。优先级1.cccc 2.dddd 3.bbbb
 效果如下
 ![image](https://github.com/user-attachments/assets/a7862d7c-fec5-4d9e-9d7e-a67779ed4e7b)
