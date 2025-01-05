@@ -21,7 +21,8 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 由于 Mytvsuper 使用 mpd 加密技术连接，每次 IPTV 换台的时间大约是 4gtv 的四倍，加重了换台等待感。
 
-支持Thetv的HLS加密方式。
+支持Thetv的HLS加密方式。由于pixman的thetv年久失修只能自己改轮子，经过YanG大佬点拨，使用了歪果同胞做的一个docker作为thetv的playlist源https://github.com/dtankdempse/thetvapp-m3u。新增 THETV_SOURCE 环境变量支持 TheTV 源配置;
+部署方法一把梭 docker run --name thetv -d -p xxxx:4124 dtankdemp/thetvapp-m3u:latest 先获得thetv的新的m3u
 
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
@@ -67,14 +68,17 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 | CUSTOM_M3U_PROXY="true" | 是否要用本程序代理自定义M3U流量，不写这个扩展默认默认不开启自定义M3U代理。 |
 | CUSTOM_M3U_PROXY_HOST | 写入自定义M3U需要代理的host，方便程序识别并代理。 |
 | EXTRA_M3U_URLS | 写入多个别的VPS订阅地址进行多源聚合，多源优先级按照写入先后排定优先级，本机优先级在最后。 |
+| THETV_SOURCE | 写入新的thetv m3u https://thetv.example.com/playlist 或者 http://thetv.example.com:xxxx/playlist，
+不写默认不加载thetv |
+
 
 
 ## 部署案例
 
 
-仅使用 IP 同一VPS地址部署pixman和代理：
+仅使用 IP 同一VPS地址部署pixman和代理以及加载thetv新的播放源头：
 
-
+docker run --name thetv -d -p 41244:4124 dtankdemp/thetvapp-m3u:latest
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
@@ -82,6 +86,7 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e SECURITY_TOKEN="test11" \
 -e INCLUDE_MYTVSUPER="true" \
 -e CHINAM3U="true"
+-e THETV_SOURCE='http://100.100.100.100:41244/playlist' \
 --restart always \
 ppyycc/streamshield-proxy:latest
 
