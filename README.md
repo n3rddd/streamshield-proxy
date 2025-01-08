@@ -111,7 +111,7 @@ cd streamshield-proxy
 
 
 
-## Docker 部署指南
+# Docker 部署指南
 1. **预置** Pixman Docker 镜像：
 
    [https://pixman.io/topics/17](https://pixman.io/topics/17)
