@@ -28,6 +28,7 @@ services:
       - SECURITY_TOKEN=${SECURITY_TOKEN}
       - INCLUDE_MYTVSUPER=${INCLUDE_MYTVSUPER}
       - THETV_SOURCE=${THETV_SOURCE}
+      - CHINAM3U=${INCLUDE_CHINA_M3U}
     restart: always
     depends_on:
       - pixman
