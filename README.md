@@ -26,8 +26,79 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
-## Docker 部署指南
+# Docker Compose部署指南
 
+## 安装docker compose
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+
+## 克隆本仓库
+git clone https://github.com/pppyyyccc/streamshield-proxy.git
+
+cd streamshield-proxy
+
+## 配置
+
+编辑 .env 文件，设置您的个人配置：
+
+  nano .env
+
+## 主要配置项：
+
+- **VPS_HOST: 设置为您的服务器 IP 或域名
+- **SECURITY_TOKEN: 设置一个安全的访问令牌
+- **MYTVSUPER_TOKEN: 如果使用 MyTVSuper，填入您的令牌
+根据需要调整其他配置项。
+
+## 使用
+启动服务 在项目目录中运行：
+  docker-compose up -d
+  
+## 访问
+使用以下格式的 URL 访问您的频道列表：
+
+  http://[您的服务器IP或域名]:[STREAMSHIELD_PORT]/[SECURITY_TOKEN]
+## 例如：
+  http://100.100.100.100:4994/your_security_token
+## 停止服务
+如需停止服务，在项目目录中运行：
+
+  docker-compose down
+## 更新
+拉取最新代码：
+  git pull
+## 重新构建并启动服务：
+  docker-compose up -d --build
+## 故障排除
+检查 Docker 日志：
+  docker-compose logs
+
+## 设置定时更新 mytvsuper_tivimate.m3u 文件： 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
+
+(crontab -l 2>/dev/null | grep -v "docker exec pixman sh -c 'flask mytvsuper_tivimate'"; echo "0 5,17 * * * docker exec pixman sh -c 'flask mytvsuper_tivimate'") | crontab -
+  
+确保所有需要的端口都已开放（默认为 4994, 5000, 4124）
+检查 .env 文件中的配置是否正确
+如果遇到任何问题，请在 Issues 页面提出。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Docker 部署指南
 1. **预置** Pixman Docker 镜像：
 
    [https://pixman.io/topics/17](https://pixman.io/topics/17)
