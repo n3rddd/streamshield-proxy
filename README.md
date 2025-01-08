@@ -10,7 +10,7 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 - **内容聚合:** 集成央视屏、中国移动 iTV、蜀小果、江苏移动魔百盒和 TPTV（直连）。您可以通过开关选择是否要导入这些直连电视，默认不开启。聚合了各种热门内容，如央视节目、中国移动 iTV、蜀小果、江苏移动魔百盒等，扩展您的内容访问范围。
 - **多源支持:** 支持多VPS部署后聚合成CDN网络，可在终端播放软件电视台内进行多源切换。
 - **加固安全:** 新增安全 token，有效防止服务被未授权扫描利用。
-- **简化安装:** 提供直观便捷的流媒体配置流程，极大降低了部署难度。
+- **简化安装:** 提供docker compose安装，极大降低了部署难度。
 - **兼容性优化:** 支持 arm64 和 amd64 架构。
 - **自定义 M3U 导入:** 您可以先在 pixman docker 中导入自定义 M3U。由于目前还没有相关需求，因此我还没有测试过这个功能，如果您遇到任何问题，请在社区反馈。
 - 可与pixman部署在同一个vps上，IP写同样便可。
@@ -23,6 +23,11 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 支持Thetv的HLS加密方式。由于pixman的thetv年久失修只能自己改轮子，经过YanG大佬点拨，使用了歪果同胞做的一个docker作为thetv的playlist源https://github.com/dtankdempse/thetvapp-m3u。新增 THETV_SOURCE 环境变量支持 TheTV 源配置;
 部署方法一把梭 docker run --name thetv -d -p xxxx:4124 dtankdemp/thetvapp-m3u:latest 先获得thetv的新的m3u
+
+## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
+## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
+## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
+
 
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
@@ -48,6 +53,9 @@ cd streamshield-proxy
 - **VPS_HOST: 设置为您的服务器 IP 或域名
 - **SECURITY_TOKEN: 设置一个安全的访问令牌
 - **MYTVSUPER_TOKEN: 如果使用 MyTVSuper，填入您的令牌
+- **主动修改端口号
+
+
 根据需要调整其他配置项。
 
 ## 使用
