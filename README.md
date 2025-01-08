@@ -33,6 +33,8 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 # Docker Compose部署指南
 
+一键部署只支持在美国加拿大vps部署，才能看thetv，别的ip机器部署不能看thetv，如想看thetv 可以在美国vps上安装docker 然后自行修改env和yml里的地址和端口号
+
 ## 安装docker compose
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
