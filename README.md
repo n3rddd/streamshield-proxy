@@ -29,6 +29,8 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 ## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
 
 
+## 终端播放器
+
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
 # Docker Compose部署指南
