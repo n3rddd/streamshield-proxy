@@ -69,7 +69,7 @@ cd streamshield-proxy
   docker-compose up -d
   
 ## 访问
-在ok影视终端播放器内填入以下格式的 URL 访问您的频道列表：
+在ok影视终端播放器内-设置-直播 填入以下格式的 URL 访问您的频道列表：
 
   http://[您的服务器IP或域名]:[STREAMSHIELD_PORT]/[SECURITY_TOKEN]
 ## 例如：
