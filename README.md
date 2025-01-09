@@ -43,16 +43,18 @@ Telegram channel https://t.me/tvb_ys
 - Docker 和 Docker Compose安装完成
 
 ## 克隆本仓库
+```bash
 git clone https://github.com/pppyyyccc/streamshield-proxy.git
 
 cd streamshield-proxy
+```
 
 ## 配置
 
 编辑 .env 文件，设置您的个人配置：
-
+```bash
   nano .env
-
+```
 ## 主要配置项：
 
 - **VPS_HOST: 设置为您的服务器 IP 或域名
@@ -65,8 +67,9 @@ cd streamshield-proxy
 
 ## 使用
 启动服务 在项目目录中运行：
+```bash
   docker-compose up -d
-  
+ ``` 
 ## 访问
 在ok影视终端播放器内-设置-直播 填入以下格式的 URL 访问您的频道列表：
 
@@ -78,9 +81,9 @@ cd streamshield-proxy
 
 
 ## 设置定时更新 mytvsuper_tivimate.m3u 文件： 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
-
+```bash
 (crontab -l 2>/dev/null | grep -v "docker exec pixman sh -c 'flask mytvsuper_tivimate'"; echo "0 5,17 * * * docker exec pixman sh -c 'flask mytvsuper_tivimate'") | crontab -
-  
+  ```  
 确保所有需要的端口都已开放（默认为 4994, 5000, 4124）
 检查 .env 文件中的配置是否正确
 如果遇到任何问题，请在 Issues 页面提出。
@@ -93,9 +96,9 @@ cd streamshield-proxy
 
 2. **加载** StreamShield Docker 镜像：
 
-   ```bash
+```bash
    docker pull ppyycc/streamshield-proxy:latest
-
+```
 设置定时更新 mytvsuper_tivimate.m3u 文件：
 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
 (crontab -l 2&gt;/dev/null | grep -v "docker exec pixman sh -c 'flask mytvsuper_tivimate'"; echo "0 5,17 * * * docker exec pixman sh -c 'flask mytvsuper_tivimate'") | crontab -
@@ -103,7 +106,7 @@ cd streamshield-proxy
 
 
 ## 启动 Docker 容器
-
+```bash
 docker run -d -p 4994:4994 --name streamshield-proxy \
     -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
     -e VPS_HOST="http://200.200.200.200:4994" \
@@ -112,7 +115,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
     -e CHINAM3U="true" \
     --restart always \
     ppyycc/streamshield-proxy:latest 
-
+```
 ## 定制环境变量
 
 | 变量 | 描述 |
@@ -135,7 +138,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 
 
 ### 仅使用 IP 同一VPS地址部署pixman和代理以及加载thetv新的播放源头：
-
+```bash
 docker run --name thetv -d -p 41244:4124 dtankdemp/thetvapp-m3u:latest
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 8888:4994 --name streamshield-proxy \
@@ -147,14 +150,14 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e THETV_SOURCE='http://100.100.100.100:41244/playlist' \
 --restart always \
 ppyycc/streamshield-proxy:latest
-
+```
 
 访问地址：http://100.100.100.100:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
 
 
 ### 仅使用 IP 地址部署并只看free mytvsuper：
 
-
+```bash
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
@@ -164,13 +167,13 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CHINAM3U="true"
 --restart always \
 ppyycc/streamshield-proxy:latest
-
+```
 
 访问地址：http://200.200.200.200:8888/test22， 并已自动导入 mytvfree.m3u，并且能收看大陆电视台。
 
 
 ### 多VPS CDN部署：
-
+```bash
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 444:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="https://pixman.aaaa.com" \
@@ -179,7 +182,7 @@ docker run -d -p 444:4994 --name streamshield-proxy \
 -e EXTRA_M3U_URLS='https://iptv.cccc.com/test123,https://iptv.dddd.com/test123'
 --restart always \
 ppyycc/streamshield-proxy:latest
-
+```
 
 访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台，聚合别的两个VPS作为多源源头。别的两个vps部署上可以不用加'EXTRA_M3U_URLS'参数启动，只是作为单源播放点。优先级1.cccc 2.dddd 3.bbbb
 效果如下
