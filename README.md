@@ -32,6 +32,8 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
+Telegram channel https://t.me/tvb_ys
+
 # Docker Compose部署指南
 
 一键部署只支持在美国加拿大vps部署，才能看thetv，别的ip机器部署不能看thetv，如想看thetv 可以在美国vps上安装docker 然后自行修改env和yml里的地址和端口号
