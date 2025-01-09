@@ -36,7 +36,7 @@ Telegram channel https://t.me/tvb_ys
 
 # Docker Compose部署指南
 
-一键部署只支持在美国加拿大vps部署，才能看thetv，别的ip机器部署不能看thetv，如想看thetv 可以在美国vps上安装docker 然后自行修改env和yml里的地址和端口号
+一键部署只支持在美国加拿大vps部署，才能正常收看thetv，别的ip机器部署完不能播放thetv。如想分别部署thetv和播放在不同vps上 可以在美国vps上安装thetv docker 然后自行修改env和yml里的地址和端口号
 
 ## 快速开始
 
