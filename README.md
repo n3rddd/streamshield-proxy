@@ -75,7 +75,9 @@ cd streamshield-proxy
 
   http://[您的服务器IP或域名]:[STREAMSHIELD_PORT]/[SECURITY_TOKEN]
 ## 例如：
-  http://100.100.100.100:4994/your_security_token
+  http://100.100.100.100:4994/your_security_token 
+
+强烈建议用nginx https反向代理一下播放地址，防止被白嫖。
 
 
 ## 设置定时更新 mytvsuper_tivimate.m3u 文件： 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
