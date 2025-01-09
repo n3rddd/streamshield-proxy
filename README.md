@@ -6,14 +6,13 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 ## 核心功能
 
-- **智能代理:** 支持 4gtv.m3u、Beesport.m3u、mytvsuper.m3u 和 TheTV。即使在 IP 受限的情况下，依然能够流畅播放4GTV和 MytvSuper。为了流畅观看 MytvSuper，您需要在 pixman Docker 环境中自行配置相应的key。
-- **内容聚合:** 集成央视屏、中国移动 iTV、蜀小果、江苏移动魔百盒和 TPTV（直连）。您可以通过开关选择是否要导入这些直连电视，默认不开启。聚合了各种热门内容，如央视节目、中国移动 iTV、蜀小果、江苏移动魔百盒等，扩展您的内容访问范围。
-- **多源支持:** 支持多VPS部署后聚合成CDN网络，可在终端播放软件电视台内进行多源切换。
-- **加固安全:** 新增安全 token，有效防止服务被未授权扫描利用。
-- **简化安装:** 提供docker compose安装，极大降低了部署难度。
-- **兼容性优化:** 支持 arm64 和 amd64 架构。
-- **自定义 M3U 导入:** 您可以先在 pixman docker 中导入自定义 M3U。由于目前还没有相关需求，因此我还没有测试过这个功能，如果您遇到任何问题，请在社区反馈。
-- 可与pixman部署在同一个vps上，IP写同样便可。
+- 智能代理：支持4gtv、Beesport、MyTVSuper、TheTV等流媒体源
+- 内容聚合：可选集成央视频、中国移动iTV等多个直连源
+- 多源支持：支持多VPS部署，形成CDN网络
+- 安全加固：集成安全token机制
+- 简易部署：提供Docker Compose一键部署方案
+- 跨平台：支持arm64和amd64架构
+- 自定义导入：支持自定义M3U导入（需Pixman Docker环境）
 
 ## 发展现状
 
@@ -37,9 +36,12 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 一键部署只支持在美国加拿大vps部署，才能看thetv，别的ip机器部署不能看thetv，如想看thetv 可以在美国vps上安装docker 然后自行修改env和yml里的地址和端口号
 
-## 安装docker compose
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+## 快速开始
+
+### 前置条件
+
+- Docker 和 Docker Compose
+- （可选）Pixman Docker 环境
 
 ## 克隆本仓库
 git clone https://github.com/pppyyyccc/streamshield-proxy.git
@@ -73,18 +75,6 @@ cd streamshield-proxy
 ## 例如：
   http://100.100.100.100:4994/your_security_token
 
-## 停止服务
-如需停止服务，在项目目录中运行：
-
-  docker-compose down
-## 更新
-拉取最新代码：
-  git pull
-## 重新构建并启动服务：
-  docker-compose up -d --build
-## 故障排除
-检查 Docker 日志：
-  docker-compose logs
 
 ## 设置定时更新 mytvsuper_tivimate.m3u 文件： 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
 
@@ -93,22 +83,6 @@ cd streamshield-proxy
 确保所有需要的端口都已开放（默认为 4994, 5000, 4124）
 检查 .env 文件中的配置是否正确
 如果遇到任何问题，请在 Issues 页面提出。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Docker 部署指南
@@ -159,7 +133,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 ## 部署案例
 
 
-仅使用 IP 同一VPS地址部署pixman和代理以及加载thetv新的播放源头：
+### 仅使用 IP 同一VPS地址部署pixman和代理以及加载thetv新的播放源头：
 
 docker run --name thetv -d -p 41244:4124 dtankdemp/thetvapp-m3u:latest
 docker pull ppyycc/streamshield-proxy:latest \
@@ -177,7 +151,7 @@ ppyycc/streamshield-proxy:latest
 访问地址：http://100.100.100.100:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
 
 
-仅使用 IP 地址部署并只看free mytvsuper：
+### 仅使用 IP 地址部署并只看free mytvsuper：
 
 
 docker pull ppyycc/streamshield-proxy:latest \
@@ -194,20 +168,7 @@ ppyycc/streamshield-proxy:latest
 访问地址：http://200.200.200.200:8888/test22， 并已自动导入 mytvfree.m3u，并且能收看大陆电视台。
 
 
-搭配域名和 HTTPS 部署：
-
-docker pull ppyycc/streamshield-proxy:latest \
-docker run -d -p 444:4994 --name streamshield-proxy \
--e CUSTOM_DOMAIN="https://pixman.aaaa.com" \
--e VPS_HOST="https://iptv.bbbb.com" \
--e SECURITY_TOKEN="test33" \
---restart always \
-ppyycc/streamshield-proxy:latest
-
-
-访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台。
-
-多VPS CDN部署：
+### 多VPS CDN部署：
 
 docker pull ppyycc/streamshield-proxy:latest \
 docker run -d -p 444:4994 --name streamshield-proxy \
@@ -222,8 +183,6 @@ ppyycc/streamshield-proxy:latest
 访问地址：https://iptv.bbbb.com/test33， 默认不包含 mytvsuper 频道清单，没有大陆电视台，聚合别的两个VPS作为多源源头。别的两个vps部署上可以不用加'EXTRA_M3U_URLS'参数启动，只是作为单源播放点。优先级1.cccc 2.dddd 3.bbbb
 效果如下
 ![image](https://github.com/user-attachments/assets/a7862d7c-fec5-4d9e-9d7e-a67779ed4e7b)
-
-
 
 
 ## 媒体终端配置
