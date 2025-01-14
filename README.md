@@ -18,8 +18,6 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 
 最新版 StreamShield Proxy 已集成绝大多数 Pixman 渠道，并支持自定义 M3U 导入，除了 YouTube。
 
-由于 Mytvsuper 使用 mpd 加密技术连接，每次 IPTV 换台的时间大约是 4gtv 的四倍，加重了换台等待感。
-
 支持Thetv的HLS加密方式。由于pixman的thetv年久失修只能自己改轮子，经过YanG大佬点拨，使用了歪果同胞做的一个docker作为thetv的playlist源https://github.com/dtankdempse/thetvapp-m3u。新增 THETV_SOURCE 环境变量支持 TheTV 源配置;
 部署方法一把梭 docker run --name thetv -d -p xxxx:4124 dtankdemp/thetvapp-m3u:latest 先获得thetv的新的m3u
 
@@ -64,12 +62,10 @@ cd streamshield-proxy
 - VPS_HOST: 设置为您的服务器 IP 或域名
 - SECURITY_TOKEN: 设置一个安全的访问令牌
 - MYTVSUPER_TOKEN: 如果使用 MyTVSuper，填入您的令牌
-- AKTV_HOST: AKTV 服务器的主机名(去掉http前缀！）
-- AKTV_PORT: AKTV 服务器的端口号
+- AKTV_HOST: AKTV 服务器的IP/host(去掉http前缀！）
+- AKTV_PORT: AKTV 服务的端口号
 
 主动修改端口号，根据需要调整其他配置项。
-
-
 
 根据需要调整其他配置项。
 
@@ -86,6 +82,7 @@ cd streamshield-proxy
   http://100.100.100.100:4994/your_security_token 
 
 ## ⚠️ **强烈建议用 NGINX HTTPS 反向代理一下播放地址和aktv的地址，防止被白嫖。**
+
 
 
 
