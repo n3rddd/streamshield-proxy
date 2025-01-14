@@ -29,6 +29,8 @@ services:
       - INCLUDE_MYTVSUPER=${INCLUDE_MYTVSUPER}
       - THETV_SOURCE=${THETV_SOURCE}
       - CHINAM3U=${INCLUDE_CHINA_M3U}
+      - AKTV_HOST=${AKTV_HOST}
+      - AKTV_PORT=${AKTV_PORT}
     restart: always
     depends_on:
       - pixman
