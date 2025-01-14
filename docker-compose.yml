@@ -17,6 +17,16 @@ services:
       - "${THETV_PORT}:4124"
     restart: always
 
+  aktv:
+    image: 4proxy  # 假设您已经构建了包含 AKTV 的镜像
+    container_name: aktv
+    ports:
+      - "${AKTV_PORT}:${AKTV_PORT}"
+    environment:
+      - AKTV_HOST=${AKTV_HOST}
+      - AKTV_PORT=${AKTV_PORT}
+    restart: always
+
   streamshield-proxy:
     image: ppyycc/streamshield-proxy:latest
     container_name: streamshield-proxy
@@ -35,6 +45,7 @@ services:
     depends_on:
       - pixman
       - thetv
+      - aktv
 
 networks:
   default:
