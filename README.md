@@ -7,7 +7,7 @@ StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.i
 ## 核心功能
 
 - 智能代理：支持 4gtv、Beesport、MyTVSuper、TheTV、AKTV 等流媒体源
-- 内容聚合：可选集成央视频、中国移动iTV等多个直连源
+- 内容聚合：可选集成央视频、中国移动iTV等多个直连源（年久失修，国内的建议直接部署肥羊或者沐晨大佬本地docker）
 - 多源支持：支持多VPS部署，形成CDN网络
 - 安全加固：集成安全token机制
 - 简易部署：提供Docker Compose一键部署方案
