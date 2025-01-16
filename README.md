@@ -208,7 +208,7 @@ ppyycc/streamshield-proxy:latest
 
 ## 社区互动与支持
 
-更多详情、问题解决或加群探讨，敬请加入 Pixman 的 Telegram 群组：https://t.me/livednowgroup。
+更多详情、问题解决或加群探讨，敬请加入 Pixman 的 Telegram 群组：https://t.me/livednowgroup
 
 
 ## 项目贡献
