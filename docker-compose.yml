@@ -17,27 +17,27 @@ services:
       - "${THETV_PORT}:4124"
     restart: always
 
-  streamshield-proxy:
-  build: 
-    context: .
-    dockerfile: Dockerfile
-  container_name: streamshield-proxy
-  ports:
-    - "${STREAMSHIELD_PORT}:4994"
-    - "${AKTV_PORT}:${AKTV_PORT}"
-  environment:
-    - CUSTOM_DOMAIN=${CUSTOM_DOMAIN}
-    - VPS_HOST=${VPS_HOST}
-    - SECURITY_TOKEN=${SECURITY_TOKEN}
-    - INCLUDE_MYTVSUPER=${INCLUDE_MYTVSUPER}
-    - THETV_SOURCE=${THETV_SOURCE}
-    - CHINAM3U=${INCLUDE_CHINA_M3U}
-    - AKTV_HOST=${AKTV_HOST}
-    - AKTV_PORT=${AKTV_PORT}
-    - AKTV_EXTERNAL_URL=${AKTV_EXTERNAL_URL}
-  restart: always
-  depends_on:
-    - pixman
-    - thetv
+   streamshield-proxy:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: streamshield-proxy
+    ports:
+      - "${STREAMSHIELD_PORT}:4994"
+      - "${AKTV_PORT}:${AKTV_PORT}"
+    environment:
+      - CUSTOM_DOMAIN=${CUSTOM_DOMAIN}
+      - VPS_HOST=${VPS_HOST}
+      - SECURITY_TOKEN=${SECURITY_TOKEN}
+      - INCLUDE_MYTVSUPER=${INCLUDE_MYTVSUPER}
+      - THETV_SOURCE=${THETV_SOURCE}
+      - CHINAM3U=${INCLUDE_CHINA_M3U}
+      - AKTV_HOST=${AKTV_HOST}
+      - AKTV_PORT=${AKTV_PORT}
+      - AKTV_EXTERNAL_URL=${AKTV_EXTERNAL_URL}
+    restart: always
+    depends_on:
+      - pixman
+      - thetv
   default:
     driver: bridge
