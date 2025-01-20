@@ -81,9 +81,7 @@ cd streamshield-proxy
 ## 例如：
   http://100.100.100.100:4994/your_security_token 
 
-## ⚠️ **强烈建议用 NGINX HTTPS 反向代理一下播放地址和aktv的地址，防止被白嫖。**
-
-
+## ⚠️ **强烈建议用 NGINX HTTPS 反向代理一下播放地址和aktv的地址，要注意防止被白嫖。反向代理设置要注意关闭HTTP2，aktv程序不支持HTTP2**
 
 
 ## 设置定时更新 mytvsuper_tivimate.m3u 文件： 为自动化运行，每日早晚执行更新。或遵循 https://pixman.io/topics/17 手动调整。
@@ -139,7 +137,9 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 | AKTV_HOST | 	(1.4.2 新增)AKTV 服务器的主机名。例如：10.10.10.10或者aktv.xxx.xxx |
 | AKTV_PORT | (1.4.2 新增)AKTV 服务的端口号。例如：30001 |
 | AKTV_EXTERNAL_URL | 	(1.4.2 新增)可选，AKTV 服务的外部访问地址（例如：https://aktv.yourdomain.com |
+| INCLUDE_ADULT_CONTENT | 	(1.4.3 新增)可选,m默认关闭 |
 | THETV_SOURCE | 写入新的thetv m3u https://thetv.example.com/playlist 或者 http://thetv.example.com:xxxx/playlist 不写默认不加载thetv |
+
 
 
 
