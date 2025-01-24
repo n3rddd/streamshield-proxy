@@ -110,8 +110,9 @@ cd streamshield-proxy
 
 进入/config添加修改链接和文件m3u
 
+```bash
 docker-compose restart streamshield-proxy
-
+ ```
 ## 访问
 在ok影视终端播放器内-设置-直播 填入以下格式的 URL 访问您的频道列表：
 
