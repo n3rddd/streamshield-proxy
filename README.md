@@ -1,44 +1,79 @@
-# StreamShield Proxy: pixman HLS MPD流媒体播放代理工具
+# StreamShield Proxy:  HLS MPD流媒体播放多源代理聚合工具
 
 ## 简介
 
-StreamShield Proxy 的目标是解决因 IP 限制而无法直接播放 pixman.io 上的 4gtv.m3u 等流媒体文件的问题。Cloudflare 免费版的流媒体代理功能缺失，并且存在封号风险，因此本项目利用个人 多个VPS（例如甲骨文的 ARM 服务器）作为CDN多源聚合代理，流畅转发所需流量，显著简化了流媒体播放的配置流程。它尤其适用于家中没有卵路由器或难以安装复杂配置环境的用户。
+StreamShield Proxy 2.0.0 是一个强大的多源流媒体聚合代理工具，旨在解决因 IP 限制而无法直接播放各种流媒体内容的问题。它支持多个VPS部署，形成CDN网络，为用户提供流畅的流媒体播放体验。
 
 ## 核心功能
 
-- 智能代理：支持 4gtv、Beesport、MyTVSuper、TheTV、AKTV 等流媒体源
-- 内容聚合：可选集成央视频、中国移动iTV等多个直连源（年久失修，国内的建议直接部署肥羊或者沐晨大佬本地docker）
-- 多源支持：支持多VPS部署，形成CDN网络
-- 安全加固：集成安全token机制
-- 简易部署：提供Docker Compose一键部署方案
-- 跨平台：支持arm64和amd64架构
-- 自定义导入：支持自定义M3U导入（需Pixman Docker环境）
+1.多源聚合：支持在线url导入，本地文件导入多个流媒体源
+
+2.智能代理：自动处理需要代理的内容
+
+3.内容定制：支持移除tv-logo、修改group-title等自定义操作
+
+4.安全加固：集成安全token机制
+
+5.灵活配置：通过环境变量实现灵活配置
+
+6.高效缓存：使用LRU缓存优化性能
+
+7.跨平台支持：支持arm64和amd64架构
 
 ## 发展现状
 
-最新版 StreamShield Proxy 已集成绝大多数 Pixman 渠道，并支持自定义 M3U 导入，除了 YouTube。
+1.全新的多源聚合机制
 
-支持Thetv的HLS加密方式。由于pixman的thetv年久失修只能自己改轮子，经过YanG大佬点拨，使用了歪果同胞做的一个docker作为thetv的playlist源https://github.com/dtankdempse/thetvapp-m3u。新增 THETV_SOURCE 环境变量支持 TheTV 源配置;
-部署方法一把梭 docker run --name thetv -d -p xxxx:4124 dtankdemp/thetvapp-m3u:latest 先获得thetv的新的m3u
+2.优化的缓存系统，提高响应速度
 
-💖 **特别鸣谢：** 衷心感谢 AKTV 的作者！他们发布的程序让大家能更方便地收看海外电视台。本项目已将该程序打包进 Docker，实现对 AKTV 源的支持，并在自己的 VPS 上进行转发。
+3.增强的错误处理和日志记录
 
-**最新版本 1.4.2 已完美支持 AKTV 源，并提供相关环境变量配置。请参考下文“定制环境变量”部分获取 `AKTV_HOST`、`AKTV_PORT` 和 `AKTV_EXTERNAL_URL` 的详细说明。**
+4.支持对特定源的内容进行自定义修改
 
-## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
-## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
-## 重要事情说三遍 docker thetv只支持美国加拿大IP的vps
+5.改进的SSL证书错误处理
+
+💖 **特别鸣谢：** 衷心感谢 AKTV 的作者！他们发布的程序让大家能更方便地收看海外电视台。本项目已将aktv m3u设置为默认在线源。
+
+## 环境变量配置
+
+所有thetv pixman的视频源都能以文件形式写在文件内方便持久化保存。先成功运行一次docker，本地文件夹就会生成所有预先生成的子文件夹和文件。
+
+通过持久化 -v /your_local_path/:/app/config  挂载
+
+/app/config/
+
+* **proxy_hosts/**
+    * `default.txt` - 默认代理 hosts 列表 (默认创建，每次升级我会覆盖)
+    * `user_defined.txt` - 用户自定义代理 hosts 列表 (预创建，用户编辑，升级不会覆盖)
+
+* **remote_m3u/**
+    * **no_proxy/**
+        * `default_sources.txt` - 默认非代理 M3U 源列表 (默认创建，每次升级我会覆盖)
+        * `sources.txt` - 用户自定义非代理 M3U 源列表 (预创建，用户编辑，升级不会覆盖)
+    * **proxy_needed/**
+        * `sources.txt` - 用户自定义代理 M3U 源列表 (预创建，用户编辑，升级不会覆盖)
+
+* **local_m3u/**
+    * **no_proxy/**
+        * `user_m3u.m3u` - 用户本地非代理 M3U 文件 (用户手动添加，文件名随便取，后缀支持m3u和txt)
+    * **proxy_needed/**
+        * `user_m3u.m3u` - 用户本地代理 M3U 文件 (用户手动添加，文件名随便取，后缀支持m3u和txt)
+
+* **generated/**
+    * `all.m3u` - 聚合的 M3U 文件 (程序自动生成)
 
 
 ## 终端播放器
 
 在 Android 环境下，您需要使用 [https://github.com/FongMi/Release/tree/fongmi/apk/release](https://github.com/FongMi/Release/tree/fongmi/apk/release) 支持 mpd 加密解码播放。
 
+ios下用aptv订阅现已支持。不支持mpd加密频道。在原先订阅链接后加上all.m3u便可。
+
 Telegram channel https://t.me/tvb_ys
 
 # Docker Compose部署指南
 
-一键部署只支持在美国加拿大vps部署，才能正常收看thetv，别的ip机器部署完不能播放thetv。如想分别部署thetv和播放在不同vps上 可以在美国vps上安装thetv docker 然后自行修改env和yml里的地址和端口号
+一键部署只支持在美国加拿大vps部署正常收看thetv，。如想分别部署thetv和播放在不同vps上 可以在美国vps上安装thetv docker 然后自行修改env和yml里的地址和端口号
 
 ## 前置条件
 
@@ -62,8 +97,6 @@ cd streamshield-proxy
 - VPS_HOST: 设置为您的服务器 IP 或域名
 - SECURITY_TOKEN: 设置一个安全的访问令牌
 - MYTVSUPER_TOKEN: 如果使用 MyTVSuper，填入您的令牌
-- AKTV_HOST: AKTV 服务器的IP/host(去掉http前缀！）
-- AKTV_PORT: AKTV 服务的端口号
 
 主动修改端口号，根据需要调整其他配置项。
 
@@ -73,13 +106,19 @@ cd streamshield-proxy
 启动服务 在项目目录中运行：
 ```bash
   docker-compose up -d
- ``` 
+ ```
+
+进入/config添加修改链接和文件m3u
+
+docker-compose restart streamshield-proxy
+
 ## 访问
 在ok影视终端播放器内-设置-直播 填入以下格式的 URL 访问您的频道列表：
 
-  http://[您的服务器IP或域名]:[STREAMSHIELD_PORT]/[SECURITY_TOKEN]
+  http://[您的服务器IP或域名]:[STREAMSHIELD_PORT]/[SECURITY_TOKEN]/all.m3u （all.m3u可省略，和老版本保持统一）
+  
 ## 例如：
-  http://100.100.100.100:4994/your_security_token 
+  http://100.100.100.100:4994/your_security_token/all.m3u
 
 ## ⚠️ **强烈建议用 NGINX HTTPS 反向代理一下播放地址和aktv的地址，要注意防止被白嫖。反向代理设置要注意关闭HTTP2，aktv程序不支持HTTP2**
 
@@ -114,9 +153,6 @@ cd streamshield-proxy
 docker run -d -p 4994:4994 --name streamshield-proxy \
     -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
     -e VPS_HOST="http://200.200.200.200:4994" \
-    -e SECURITY_TOKEN="test11" \
-    -e INCLUDE_MYTVSUPER="free" \
-    -e CHINAM3U="true" \
     --restart always \
     ppyycc/streamshield-proxy:latest 
 ```
@@ -126,19 +162,9 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 | --- | --- |
 | CUSTOM_DOMAIN | 已运行pixman docker的URL，不需附带 m3u 后缀，已包含 YSP 和 4GTV 等聚合。示例：http://1.1.1.1:5000 或 https://bb.bb.bb |
 | VPS_HOST | 个人的 VPS HOST，支持 HTTP/HTTPS，可以是 IP 地址或定制域名。示例：http://2.2.2.2:4994 或 https://cc.cc.cc |
-| INCLUDE_MYTVSUPER="true"/"free" | 是否启用 mytvsuper_tivimate.m3u 渠道加载，缺省不加载。有自己的key就用ture，没有key就用free看12个免费电视台 |
 | DEBUG="true" | 是否要开启DEBUG， 不写这个扩展默认不开启。 |
 | SECURITY_TOKEN="testtoken" | 输入自己设置的安全token防止扫到端口被爆破。 |
-| CHINAM3U="true" | 是否要开启大陆电视台， 不写这个扩展默认不开启。 |
-| CUSTOM_M3U=“test.m3u”| 是否要开倒入自定义M3U，名字和pixman docker内一致。 |
-| CUSTOM_M3U_PROXY="true" | 是否要用本程序代理自定义M3U流量，不写这个扩展默认默认不开启自定义M3U代理。 |
-| CUSTOM_M3U_PROXY_HOST | 写入自定义M3U需要代理的host，方便程序识别并代理。 |
 | EXTRA_M3U_URLS | 写入多个别的VPS订阅地址进行多源聚合，多源优先级按照写入先后排定优先级，本机优先级在最后。 |
-| AKTV_HOST | 	(1.4.2 新增)AKTV 服务器的主机名。例如：10.10.10.10或者aktv.xxx.xxx |
-| AKTV_PORT | (1.4.2 新增)AKTV 服务的端口号。例如：30001 |
-| AKTV_EXTERNAL_URL | 	(1.4.2 新增)可选，AKTV 服务的外部访问地址（例如：https://aktv.yourdomain.com |
-| INCLUDE_ADULT_CONTENT | 	(1.4.3 新增)可选,m默认关闭 |
-| THETV_SOURCE | 写入新的thetv m3u https://thetv.example.com/playlist 或者 http://thetv.example.com:xxxx/playlist 不写默认不加载thetv |
 
 
 
@@ -146,7 +172,7 @@ docker run -d -p 4994:4994 --name streamshield-proxy \
 ## 部署案例
 
 
-### 仅使用 IP 同一VPS地址部署pixman和代理以及加载thetv和aktv新的播放源头：
+### 仅使用 IP 同一VPS地址部署：
 ```bash
 docker run --name thetv -d -p 41244:4124 dtankdemp/thetvapp-m3u:latest
 docker pull ppyycc/streamshield-proxy:latest \
@@ -154,34 +180,11 @@ docker run -d -p 8888:4994 --name streamshield-proxy \
 -e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
 -e VPS_HOST="http://100.100.100.100:8888" \
 -e SECURITY_TOKEN="test11" \
--e INCLUDE_MYTVSUPER="true" \
--e CHINAM3U="true"
--e THETV_SOURCE='http://100.100.100.100:41244/playlist' \
--e AKTV_HOST="100.100.100.100" \
--e AKTV_PORT="30001" \
--e AKTV_EXTERNAL_URL="https://aktv.yourdomain.com" \
 --restart always \
 ppyycc/streamshield-proxy:latest
 ```
 
-访问地址：http://100.100.100.100:8888/test11， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
-
-
-### 仅使用 IP 地址部署并只看free mytvsuper：
-
-```bash
-docker pull ppyycc/streamshield-proxy:latest \
-docker run -d -p 8888:4994 --name streamshield-proxy \
--e CUSTOM_DOMAIN="http://100.100.100.100:5000" \
--e VPS_HOST="http://200.200.200.200:8888" \
--e SECURITY_TOKEN="test22" \
--e INCLUDE_MYTVSUPER="free" \
--e CHINAM3U="true"
---restart always \
-ppyycc/streamshield-proxy:latest
-```
-
-访问地址：http://200.200.200.200:8888/test22， 并已自动导入 mytvfree.m3u，并且能收看大陆电视台。
+访问地址：http://100.100.100.100:8888/test11/all.m3u， 并已自动导入 mytvsuper_tivimate.m3u，并且能收看大陆电视台。
 
 
 ### 多VPS CDN部署：
