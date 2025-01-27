@@ -1,1 +1,2 @@
 # 用户自定义代理 M3U 源列表 (预创建，用户编辑，升级不会覆盖)
+https://raw.githubusercontent.com/YueChan/Live/main/Adult.m3u?group-title=XXX
