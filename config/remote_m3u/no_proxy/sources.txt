@@ -1,2 +1,4 @@
 # 用户自定义非代理 M3U 源列表 (预创建，用户编辑，升级不会覆盖)
 http://8.138.7.223/live.txt
+东森亚洲新闻,http://38.64.72.148:80/hls/modn/list/2016/chunklist0.m3u8
+东森亚洲新闻,https://d2e1asnsl7br7b.cloudfront.net/7782e205e72f43aeb4a48ec97f66ebbe/index_3.m3u8
